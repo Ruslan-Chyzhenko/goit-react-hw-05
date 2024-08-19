@@ -3,18 +3,18 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import clsx from "clsx";
 
 import css from "./App.module.css";
-import Loader from "./components/Loader/Loader";
+import Loader from "../Loader/Loader";
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const MoviesPage = lazy(() => import("./pages/MoviesPage"));
-const ContextExamplePage = lazy(() => import("./pages/ContextExamplePage"));
-const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
-const PostComments = lazy(() =>
-  import("./components/MovieComments/MovieComments")
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
+const ContextMoviePage = lazy(() =>
+  import("../../pages/ContextMoviePage/ContextMoviePage")
 );
-const PostReviews = lazy(() =>
-  import("./components/MovieReviews/MovieReviews")
+const MovieDetailsPage = lazy(() =>
+  import("../../pages/MovieDetailsPage/MovieDetailsPage")
 );
+const MovieComments = lazy(() => import("../MovieComments/MovieComments"));
+const MovieReviews = lazy(() => import("../MovieReviews/MovieReviews"));
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
             className={({ isActive }) => clsx(css.link, isActive && css.active)}
             to="/context-example"
           >
-            Context Example
+            Context Movie
           </NavLink>
         </nav>
       </header>
@@ -45,8 +45,8 @@ function App() {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/posts" element={<MoviePage />} />
-            <Route path="/context-example" element={<ContextExamplePage />} />
+            <Route path="/posts" element={<MoviesPage />} />
+            <Route path="/context-example" element={<ContextMoviePage />} />
             <Route path="/posts/:postId" element={<MovieDetailsPage />}>
               <Route path="comments" element={<MovieComments />} />
               <Route path="reviews" element={<MovieReviews />} />
