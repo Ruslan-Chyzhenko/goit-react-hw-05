@@ -1,63 +1,43 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import { requestSinglePostData } from "../services/api";
-import Loader from "../components/Loader/Loader";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import MovieCast from "../../components/MovieCast/MovieCast";
+import MovieReviews from "../../components/MovieReviews/MovieReviews";
+// import css from "./MovieDetailsPage.module.css";
 
-const PostDetailsPage = () => {
-  const { postId } = useParams();
-  const [postDetails, setPostDetails] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const location = useLocation();
-
-  const backLinkRef = useRef(location.state?.from ?? "/posts");
+const MovieDetailsPage = () => {
+  const { movieId } = useParams();
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    const fetchPostDetails = async () => {
+    const fetchMovieDetails = async () => {
       try {
-        setIsLoading(true);
-        const data = await requestSinglePostData(postId);
-        setPostDetails(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+        const response = await axios.get("htpps://", {
+          headers: {
+            Authorization: "Acess token",
+          },
+        });
+        setMovie(response.data);
+      } catch (error) {
+        console.error("Error fetching trending movies:", error);
       }
     };
 
-    fetchPostDetails();
-  }, [postId]);
+    fetchMovieDetails();
+  }, [movieId]);
+
+  if (!movie) return <p>Loading...</p>;
 
   return (
     <div>
-      <Link to={backLinkRef.current}>⬅ Go back</Link>
-      <br />
-      Post Details. ID: {postId}
-      {postDetails !== null && (
-        <div>
-          <h1>{postDetails.title}</h1>
-          <p>{postDetails.body}</p>
-        </div>
-      )}
-      <div>
-        <NavLink to="comments">Comments</NavLink>
-        <NavLink to="reviews">Reviews</NavLink>
-      </div>
-      <div>
-        <Outlet />
-      </div>
-      {isLoading && <Loader />}
-      {error !== null && (
-        <p style={{ color: "red" }}>{error}. Please, try again later.</p>
-      )}
+      <h1>{movie.title}</h1>
+      <p>{movie.overview}</p>
+      <p>Release Date: {movie.release_date}</p>
+      <p>Rating: {movie.average_votes}</p>
+      <MovieCast />
+      <MovieReviews />
     </div>
   );
 };
 
-export default PostDetailsPage;
+export default MovieDetailsPage;
