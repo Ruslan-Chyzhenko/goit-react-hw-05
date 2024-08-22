@@ -7,6 +7,8 @@ const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
+    if (!movieId) return;
+
     const fetchMovieReviews = async () => {
       try {
         const response = await axios.get("htpps://", {

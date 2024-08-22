@@ -1,12 +1,26 @@
-// Під час сабміту форми на сторінці MoviesPage обов’язково записувати слово для пошуку в параметри рядка запиту, сама форма повинна бути в окремому компоненті.
+import React, { useState } from "react";
 
-// const handleSubmit= value => {
-// setSearchParams({ query: value });
-// };
+const SearchMoviesForm = ({ onSearch }) => {
+  const [value, setValue] = useState("");
 
-// На сторінках MoviesPage, MovieCast, MovieReviewsв масиві залежностей повинен бути id фільма який ми отримали з рядка запиту
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (value.trim() === "") return;
+    onSearch(value);
+    setValue("");
+  };
 
-// const { movieId } = useParams();
-// useEffect(() => {
-// if (!movieId) return;
-// }, [movieId]);
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Search movies..."
+      />
+      <button type="submit">Search</button>
+    </form>
+  );
+};
+
+export default SearchMoviesForm;

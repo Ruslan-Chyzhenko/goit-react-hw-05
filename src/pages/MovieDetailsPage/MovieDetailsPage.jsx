@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   useParams,
   useLocation,
@@ -16,7 +16,10 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const locationRef = useRef(location.state?.from || "/");
   const baseImageUrl = "https://image.tmdb.org/t/p/w500";
+  const defaultImg =
+    "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -38,11 +41,12 @@ const MovieDetailsPage = () => {
   if (!movie) return <p>Loading...</p>;
 
   const handleGoBack = () => {
-    if (location.state && location.state.from) {
-      navigate(location.state.from);
-    } else {
-      navigate("/movies");
-    }
+    // if (location.state && location.state.from) {
+    //   navigate(location.state.from);
+    // } else {
+    //   navigate("/movies");
+    // }
+    navigate(locationRef.current);
   };
 
   return (
@@ -58,10 +62,10 @@ const MovieDetailsPage = () => {
       <p>Release Date: {movie.release_date}</p>
       <p>Rating: {movie.average_votes}</p>
       <nav>
-        <Link to="cast" state={location.state}>
+        <Link to="cast" state={{ from: locationRef.current }}>
           Cast
         </Link>
-        <Link to="reviews" state={location.state}>
+        <Link to="reviews" state={{ from: locationRef.current }}>
           Reviews
         </Link>
       </nav>

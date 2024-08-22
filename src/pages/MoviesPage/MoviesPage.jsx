@@ -1,40 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 import MovieList from "../../components/MovieList/MovieList";
+import SearchMoviesForm from "../../components/SearchMoviesForm/SearchMoviesForm";
 
 const MoviesPage = () => {
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const query = searchParams.get("query") || "";
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get("htpps://", {
-        headers: {
-          Authorization: "Acess token",
-        },
-      });
-      setMovies(response.data.results);
-    } catch (error) {
-      console.error("Error fetching trending movies:", error);
-    }
+  useEffect(() => {
+    if (!query) return;
+
+    const fetchMoviesPage = async () => {
+      try {
+        const response = await axios.get("htpps://", {
+          params: {
+            query: query,
+          },
+          headers: {
+            Authorization: "Acess token",
+          },
+        });
+        setMovies(response.data.results);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchMoviesPage();
+  }, [query]);
+
+  const handleSearch = (value) => {
+    setSearchParams({ query: value });
   };
 
   return (
     <div>
-      <h1>Search Movies</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Enter movie name"
-      />
-      <button onClick={handleSearch}>Search</button>
-      {/* <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
-        ))}
-      </ul> */}
+      <SearchMoviesForm onSearch={handleSearch} />
       {movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );
