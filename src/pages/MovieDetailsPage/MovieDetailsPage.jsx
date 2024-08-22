@@ -19,7 +19,7 @@ const MovieDetailsPage = () => {
         });
         setMovie(response.data);
       } catch (error) {
-        console.error("Error fetching trending movies:", error);
+        console.error("Error fetching trending details:", error);
       }
     };
 
