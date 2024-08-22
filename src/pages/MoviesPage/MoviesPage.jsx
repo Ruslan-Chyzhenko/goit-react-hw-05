@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import MovieList from "../../components/MovieList/MovieList";
+
 const MoviesPage = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
@@ -28,11 +30,12 @@ const MoviesPage = () => {
         placeholder="Enter movie name"
       />
       <button onClick={handleSearch}>Search</button>
-      <ul>
+      {/* <ul>
         {movies.map((movie) => (
           <li key={movie.id}>{movie.title}</li>
         ))}
-      </ul>
+      </ul> */}
+      {movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );
 };
