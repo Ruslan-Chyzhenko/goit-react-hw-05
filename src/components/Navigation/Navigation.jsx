@@ -10,9 +10,6 @@ function Navigation() {
       <NavLink to="/movies" className={css.navLink}>
         Movies
       </NavLink>
-      <NavLink to="/search" className={css.navLink}>
-        Search
-      </NavLink>
     </nav>
   );
 }
