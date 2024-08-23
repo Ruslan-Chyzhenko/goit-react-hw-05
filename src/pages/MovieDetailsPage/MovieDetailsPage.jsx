@@ -71,8 +71,6 @@ const MovieDetailsPage = () => {
           </nav>
         </div>
       </div>
-      <MovieCast />
-      <MovieReviews />
       <Outlet />
     </div>
   );
