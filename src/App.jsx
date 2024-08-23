@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import styles from "./App.module.css";
 const Navigation = lazy(() => import("./components/Navigation/Navigation"));
@@ -17,7 +17,7 @@ const MovieReviews = lazy(() =>
 
 function App() {
   return (
-    <Router>
+    <>
       <Navigation />
       <Suspense fallback={<div>Loading...</div>}>
         <div className={styles.app}>
@@ -32,7 +32,7 @@ function App() {
           </Routes>
         </div>
       </Suspense>
-    </Router>
+    </>
   );
 }
 

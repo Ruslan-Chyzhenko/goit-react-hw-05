@@ -24,11 +24,15 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get("htpps://", {
-          headers: {
-            Authorization: "Acess token",
-          },
-        });
+        const response = await axios.get(
+          "https://api.themoviedb.org/3/movie/${movieId}",
+          {
+            headers: {
+              Authorization:
+                "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZDY0NWQzMTNiZTViODY4NWIyOGFiNjcyY2I2ZmY4YyIsIm5iZiI6MTcyNDA3MTkzNy4xNjYyMjUsInN1YiI6IjY2YzMzYTU0YjE3YjliNTMxMTZlMzlhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TbYPKmdLqwZ1JEXU95t83-dCNEVFSUEAO_Wsy94NTVo",
+            },
+          }
+        );
         setMovie(response.data);
       } catch (error) {
         console.error("Error fetching trending details:", error);
