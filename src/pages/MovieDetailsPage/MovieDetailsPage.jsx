@@ -40,26 +40,37 @@ const MovieDetailsPage = () => {
 
   const defaultImg =
     "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
-  const posterUrl = movieData.poster_path
-    ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`
+  const posterUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
     : defaultImg;
 
   return (
-    <div>
-      <button onClick={handleGoBack} Go back></button>
-      <h1>{movieData.title}</h1>
-      <img src={`${posterUrl}`} alt={`${movieData.title} poster`} width={250} />
-      <p>{movieData.overview}</p>
-      <p>Release Date: {movie.release_date}</p>
-      <p>Rating: {movie.average_votes}</p>
-      <nav>
-        <Link to="cast" state={{ from: locationRef.current }}>
-          Cast
-        </Link>
-        <Link to="reviews" state={{ from: locationRef.current }}>
-          Reviews
-        </Link>
-      </nav>
+    <div className={css.container}>
+      <button className={css.backButton} onClick={handleGoBack}>
+        Go back
+      </button>
+      <div className={css.header}>
+        <img
+          className={css.poster}
+          src={`${posterUrl}`}
+          alt={`${movie.title} poster`}
+          width={250}
+        />
+        <div className={css.movieDetails}>
+          <h1 className={css.title}>{movie.title}</h1>
+          <p className={css.overview}>{movie.overview}</p>
+          <p className={css.releaseDate}>Release Date: {movie.release_date}</p>
+          <p className={css.rating}>Rating: {movie.average_votes}</p>
+          <nav>
+            <Link to="cast" state={{ from: locationRef.current }}>
+              Cast
+            </Link>
+            <Link to="reviews" state={{ from: locationRef.current }}>
+              Reviews
+            </Link>
+          </nav>
+        </div>
+      </div>
       <MovieCast />
       <MovieReviews />
       <Outlet />

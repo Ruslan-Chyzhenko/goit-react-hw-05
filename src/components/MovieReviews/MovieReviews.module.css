@@ -1,0 +1,24 @@
+/* MovieReviews.module.css */
+.reviewsContainer {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.review {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.reviewAuthor {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.reviewContent {
+  font-size: 1rem;
+}
+
+.noReviews {
+  font-style: italic;
+  color: #666;
+}

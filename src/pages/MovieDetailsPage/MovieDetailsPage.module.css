@@ -1,0 +1,67 @@
+/* MovieDetailsPage.module.css */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.backButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.backButton:hover {
+  background-color: #0056b3;
+}
+
+.poster {
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.movieDetails {
+  max-width: 700px;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.overview {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.releaseDate,
+.rating {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+nav {
+  margin: 20px 0;
+}
+
+nav a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-right: 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
