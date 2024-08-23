@@ -6,10 +6,10 @@ import {
   Outlet,
   Link,
 } from "react-router-dom";
-import axios from "axios";
+import { requestMovieById } from "../../components/apiMovie";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
-// import css from "./MovieDetailsPage.module.css";
+import css from "./MovieDetailsPage.module.css";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -17,23 +17,13 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const locationRef = useRef(location.state?.from || "/");
-  const baseImageUrl = "https://image.tmdb.org/t/p/w500";
-  const defaultImg =
-    "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
+  const backLink = location.state?.from ?? "/movies";
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/${movieId}",
-          {
-            headers: {
-              Authorization:
-                "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZDY0NWQzMTNiZTViODY4NWIyOGFiNjcyY2I2ZmY4YyIsIm5iZiI6MTcyNDA3MTkzNy4xNjYyMjUsInN1YiI6IjY2YzMzYTU0YjE3YjliNTMxMTZlMzlhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TbYPKmdLqwZ1JEXU95t83-dCNEVFSUEAO_Wsy94NTVo",
-            },
-          }
-        );
-        setMovie(response.data);
+        const data = await requestMovieById(movieId);
+        setMovie(data);
       } catch (error) {
         console.error("Error fetching trending details:", error);
       }
@@ -45,24 +35,21 @@ const MovieDetailsPage = () => {
   if (!movie) return <p>Loading...</p>;
 
   const handleGoBack = () => {
-    // if (location.state && location.state.from) {
-    //   navigate(location.state.from);
-    // } else {
-    //   navigate("/movies");
-    // }
-    navigate(locationRef.current);
+    navigate(backLink);
   };
+
+  const defaultImg =
+    "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
+  const posterUrl = movieData.poster_path
+    ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`
+    : defaultImg;
 
   return (
     <div>
       <button onClick={handleGoBack} Go back></button>
-      <h1>{movie.title}</h1>
-      <img
-        src={`${baseImageUrl}${movie.poster_path}`}
-        alt={movie.title}
-        style={{ width: "300px" }}
-      />
-      <p>{movie.overview}</p>
+      <h1>{movieData.title}</h1>
+      <img src={`${posterUrl}`} alt={`${movieData.title} poster`} width={250} />
+      <p>{movieData.overview}</p>
       <p>Release Date: {movie.release_date}</p>
       <p>Rating: {movie.average_votes}</p>
       <nav>
