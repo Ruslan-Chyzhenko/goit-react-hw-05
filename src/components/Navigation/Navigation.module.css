@@ -1,0 +1,19 @@
+/* Navigation.module.css */
+.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin: 0 15px;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}

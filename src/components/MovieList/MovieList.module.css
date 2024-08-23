@@ -1,0 +1,31 @@
+/* MovieList.module.css */
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.item {
+  flex: 1 1 200px;
+  max-width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  transition: transform 0.2s ease-in-out;
+}
+
+.item:hover {
+  transform: scale(1.05);
+}
+
+.poster {
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  font-size: 1rem;
+  margin: 10px;
+  text-align: center;
+}

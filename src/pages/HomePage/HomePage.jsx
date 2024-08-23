@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MovieList from "../../components/MovieList/MovieList";
 import { requestTrendingMovies } from "../../components/apiMovie";
+import css from "./HomePage.module.css";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -19,8 +20,13 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Trending Movies</h1>
+    <div className={css.container}>
+      <div className={css.header}>
+        <h1 className={css.title}>Trending Movies</h1>
+        <p className={css.description}>
+          Check out the most popular movies right now!
+        </p>
+      </div>
       <MovieList movies={movies} />
     </div>
   );
